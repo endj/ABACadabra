@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  db:
+    container_name: mysql8
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - '3306:3306'
+
+  prometheus:
+    image: prom/prometheus:v2.44.0
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana:9.5.2
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    volumes:
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources

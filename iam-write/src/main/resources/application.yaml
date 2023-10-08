@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    username: test
+    password: test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: [ "prometheus" ]
